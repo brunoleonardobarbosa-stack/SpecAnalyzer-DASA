@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpecAnalyzer DASA — Analisador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div class="texture" aria-hidden="true"></div>
+
+  <div class="wrapper">
+    <header>
+      <div class="brand">
+        <a href="index.html" class="brand-link" aria-label="Voltar para a pagina inicial">
+          <span class="dot" aria-hidden="true"></span>
+          <span>SpecAnalyzer DASA</span>
+        </a>
+      </div>
+      <span class="tag">Analisador inteligente de especificacoes</span>
+    </header>
+
+    <main class="app-layout">
+      <!-- Input Panel -->
+      <section class="panel input-panel" aria-labelledby="input-heading">
+        <h2 id="input-heading">Especificacao</h2>
+        <p class="panel-desc">Cole ou escreva o texto da especificacao abaixo para iniciar a analise.</p>
+
+        <label for="spec-input" class="sr-only">Texto da especificacao</label>
+        <textarea
+          id="spec-input"
+          class="spec-textarea"
+          placeholder="Ex: O sistema DEVE permitir que o usuario faca login com email e senha. O sistema DEVE validar o email. O sistema DEVE enviar uma confirmacao por email apos o cadastro. O modulo de pagamento DEVE suportar cartao de credito e boleto. O sistema NAO DEVE armazenar senhas em texto puro..."
+          rows="14"
+          aria-describedby="char-count"
+        ></textarea>
+
+        <div class="input-footer">
+          <span id="char-count" class="char-count" aria-live="polite">0 caracteres</span>
+          <div class="input-actions">
+            <button class="btn secondary" id="clear-btn" type="button" aria-label="Limpar campo de texto">Limpar</button>
+            <button class="btn primary" id="analyze-btn" type="button">Analisar</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Panel -->
+      <section class="panel results-panel" id="results-panel" aria-labelledby="results-heading" aria-live="polite">
+        <h2 id="results-heading">Resultados</h2>
+
+        <div id="results-placeholder" class="results-placeholder">
+          <div class="placeholder-icon" aria-hidden="true">⟳</div>
+          <p>Cole uma especificacao e clique em <strong>Analisar</strong> para ver os resultados aqui.</p>
+        </div>
+
+        <div id="results-content" class="results-content hidden" role="region" aria-label="Resultados da analise">
+          <!-- Summary bar -->
+          <div class="summary-bar" id="summary-bar"></div>
+
+          <!-- Requirements -->
+          <div class="result-section" id="section-requirements">
+            <h3 class="section-title">
+              <span class="section-icon" aria-hidden="true">✓</span>
+              Requisitos identificados
+              <span class="section-badge" id="badge-requirements">0</span>
+            </h3>
+            <ul class="result-list" id="list-requirements"></ul>
+          </div>
+
+          <!-- Negations / Restrictions -->
+          <div class="result-section" id="section-restrictions">
+            <h3 class="section-title">
+              <span class="section-icon restriction" aria-hidden="true">✕</span>
+              Restricoes e negacoes
+              <span class="section-badge warning" id="badge-restrictions">0</span>
+            </h3>
+            <ul class="result-list" id="list-restrictions"></ul>
+          </div>
+
+          <!-- Inconsistencies -->
+          <div class="result-section" id="section-inconsistencies">
+            <h3 class="section-title">
+              <span class="section-icon danger" aria-hidden="true">⚠</span>
+              Possiveis inconsistencias
+              <span class="section-badge danger" id="badge-inconsistencies">0</span>
+            </h3>
+            <ul class="result-list" id="list-inconsistencies"></ul>
+          </div>
+
+          <!-- Keywords -->
+          <div class="result-section" id="section-keywords">
+            <h3 class="section-title">
+              <span class="section-icon accent2" aria-hidden="true">#</span>
+              Palavras-chave relevantes
+            </h3>
+            <div class="keyword-cloud" id="keyword-cloud"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Interface demonstrativa criada para o repositório SpecAnalyzer-DASA.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
