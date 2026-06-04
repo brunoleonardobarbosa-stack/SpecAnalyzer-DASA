@@ -288,6 +288,90 @@
   border-style: dashed;
 }
 
+.result-item.filter-hidden {
+  display: none;
+}
+
+.result-item.duplicate-item {
+  border-color: rgba(124, 58, 237, 0.25);
+  background: rgba(124, 58, 237, 0.04);
+}
+
+.dup-count {
+  font-size: 0.8rem;
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.strength-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.strength-tag.mandatory {
+  background: rgba(13, 148, 136, 0.15);
+  color: var(--accent);
+}
+
+.strength-tag.recommended {
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--accent-2);
+}
+
+.severity-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-right: 4px;
+}
+
+.severity-tag.high {
+  background: rgba(239, 68, 68, 0.15);
+  color: #b91c1c;
+}
+
+.severity-tag.med {
+  background: rgba(234, 88, 12, 0.12);
+  color: #b45309;
+}
+
+.result-item.neutral-item {
+  opacity: 0.9;
+}
+
+/* ── Toast ───────────────────────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--text);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: var(--shadow);
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+
+.toast.hidden {
+  display: none;
+}
+
 /* ── Keyword cloud ────────────────────────────────────────────── */
 
 .keyword-cloud {
