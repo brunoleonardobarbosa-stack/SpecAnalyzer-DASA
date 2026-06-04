@@ -25,32 +25,63 @@
     </header>
 
     <main class="app-layout">
-      <!-- Input Panel -->
       <section class="panel input-panel" aria-labelledby="input-heading">
         <h2 id="input-heading">Especificacao</h2>
-        <p class="panel-desc">Cole ou escreva o texto da especificacao abaixo para iniciar a analise.</p>
+        <p class="panel-desc">
+          Cole, escreva ou importe um arquivo de texto (.txt, .md). Use
+          <kbd>Ctrl</kbd>+<kbd>Enter</kbd> para analisar.
+        </p>
+
+        <div
+          class="upload-zone"
+          id="upload-zone"
+          tabindex="0"
+          role="button"
+          aria-label="Importar arquivo de especificacao. Arraste ou clique para selecionar."
+        >
+          <span class="upload-icon" aria-hidden="true">↑</span>
+          <span class="upload-text">Arraste um arquivo aqui ou clique para importar</span>
+          <span class="upload-hint">.txt, .md — ate 512 KB</span>
+        </div>
+        <input type="file" id="file-input" class="sr-only" accept=".txt,.md,.text,text/plain" />
 
         <label for="spec-input" class="sr-only">Texto da especificacao</label>
         <textarea
           id="spec-input"
           class="spec-textarea"
-          placeholder="Ex: O sistema DEVE permitir que o usuario faca login com email e senha. O sistema DEVE validar o email. O sistema DEVE enviar uma confirmacao por email apos o cadastro. O modulo de pagamento DEVE suportar cartao de credito e boleto. O sistema NAO DEVE armazenar senhas em texto puro..."
-          rows="14"
-          aria-describedby="char-count"
+          placeholder="Ex: O sistema DEVE permitir que o usuario faca login com email e senha..."
+          rows="12"
+          aria-describedby="char-count input-hint"
         ></textarea>
+        <p id="input-hint" class="input-hint">Rascunho salvo automaticamente neste navegador.</p>
 
         <div class="input-footer">
           <span id="char-count" class="char-count" aria-live="polite">0 caracteres</span>
           <div class="input-actions">
+            <button class="btn secondary" id="sample-btn" type="button">Exemplo</button>
             <button class="btn secondary" id="clear-btn" type="button" aria-label="Limpar campo de texto">Limpar</button>
             <button class="btn primary" id="analyze-btn" type="button">Analisar</button>
           </div>
         </div>
       </section>
 
-      <!-- Results Panel -->
       <section class="panel results-panel" id="results-panel" aria-labelledby="results-heading" aria-live="polite">
-        <h2 id="results-heading">Resultados</h2>
+        <div class="results-header">
+          <h2 id="results-heading">Resultados</h2>
+          <div class="results-toolbar hidden" id="results-toolbar">
+            <label class="filter-label sr-only" for="result-filter">Filtrar resultados</label>
+            <input
+              type="search"
+              id="result-filter"
+              class="result-filter"
+              placeholder="Filtrar itens..."
+              autocomplete="off"
+            />
+            <button class="btn secondary btn-sm" id="export-btn" type="button">Exportar</button>
+            <button class="btn secondary btn-sm" id="copy-btn" type="button">Copiar</button>
+          </div>
+        </div>
+        <p class="analysis-meta hidden" id="analysis-meta" aria-live="polite"></p>
 
         <div id="results-placeholder" class="results-placeholder">
           <div class="placeholder-icon" aria-hidden="true">⟳</div>
@@ -58,10 +89,17 @@
         </div>
 
         <div id="results-content" class="results-content hidden" role="region" aria-label="Resultados da analise">
-          <!-- Summary bar -->
           <div class="summary-bar" id="summary-bar"></div>
 
-          <!-- Requirements -->
+          <div class="result-section" id="section-duplicates">
+            <h3 class="section-title">
+              <span class="section-icon duplicate" aria-hidden="true">≈</span>
+              Duplicatas
+              <span class="section-badge duplicate" id="badge-duplicates">0</span>
+            </h3>
+            <ul class="result-list" id="list-duplicates"></ul>
+          </div>
+
           <div class="result-section" id="section-requirements">
             <h3 class="section-title">
               <span class="section-icon" aria-hidden="true">✓</span>
@@ -71,7 +109,6 @@
             <ul class="result-list" id="list-requirements"></ul>
           </div>
 
-          <!-- Negations / Restrictions -->
           <div class="result-section" id="section-restrictions">
             <h3 class="section-title">
               <span class="section-icon restriction" aria-hidden="true">✕</span>
@@ -81,7 +118,6 @@
             <ul class="result-list" id="list-restrictions"></ul>
           </div>
 
-          <!-- Inconsistencies -->
           <div class="result-section" id="section-inconsistencies">
             <h3 class="section-title">
               <span class="section-icon danger" aria-hidden="true">⚠</span>
@@ -91,7 +127,15 @@
             <ul class="result-list" id="list-inconsistencies"></ul>
           </div>
 
-          <!-- Keywords -->
+          <div class="result-section" id="section-neutrals">
+            <h3 class="section-title">
+              <span class="section-icon neutral" aria-hidden="true">○</span>
+              Demais frases
+              <span class="section-badge neutral" id="badge-neutrals">0</span>
+            </h3>
+            <ul class="result-list" id="list-neutrals"></ul>
+          </div>
+
           <div class="result-section" id="section-keywords">
             <h3 class="section-title">
               <span class="section-icon accent2" aria-hidden="true">#</span>
@@ -107,6 +151,8 @@
       Interface demonstrativa criada para o repositório SpecAnalyzer-DASA.
     </footer>
   </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 
   <script src="app.js"></script>
 </body>
